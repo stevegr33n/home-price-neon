@@ -1,9 +1,8 @@
 {
-    // Comments are accepted in the manifest, even though it is JSON.
-    "manifest_version": 3,
-    "name": "Chrome Extension v3 Starter",
-    "description": "A minimal example of a chrome extension using manifest v3",
+    "name": "House Price History",
     "version": "0.0.1",
+    "manifest_version": 3,
+    "description": "Rightmove property tracker",
     "icons": {
         "16": "logo/logo-16.png",
         "48": "logo/logo-48.png",
@@ -14,15 +13,16 @@
         "default_title": "Chrome Addon v3 Starter",
         "default_popup": "popup/popup.html"
     },
-    "permissions": [],
+    "permissions": ["activeTab", "scripting", "storage", "tabs"],
     "host_permissions": [
+        "https://*.rightmove.co.uk/*",
         "*://*/*"
     ],
     "background": {
-        "service_worker": "service-worker.js"
+        "service_worker": "background.js"
     },
     "content_scripts": [{
-        "js": ["foreground.js"],
-        "matches": ["https://github.com/*"]
+        "js": ["contentScript.js"],
+        "matches": ["https://*.rightmove.co.uk/*"]
     }]
 }
