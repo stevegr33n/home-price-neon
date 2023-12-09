@@ -27,9 +27,9 @@ chrome.tabs.onUpdated.addListener(async () => {
   if (tab.url && tab.url.includes(rightmove + "/properties")) {
     const propertyID = tab.url.split("#")[0].slice(-9)
 
-    console.log(tab.url)
-    console.log(tab.id)
-    console.log(propertyID)
+    // console.log(tab.url)
+    // console.log(tab.id)
+    // console.log(propertyID)
 
     chrome.tabs.sendMessage(tab.id, {
       type: "NEW",

@@ -9,12 +9,17 @@
 (() => {
   chrome.runtime.onMessage.addListener((obj, sender, res) => {
     const {type, value, propertyID } = obj;
-    let currentProperty;
-    if (type === "NEW") {
-      currentProperty = propertyID;
-      newPropertyLoaded();
-    }
+      const priceHistory = getHousePriceHistory(propertyID)
+      const price = getHousePrice();
+
   })
 })();
 
-function newPropertyLoaded() {}
+function getHousePrice() {
+  return document.getElementsByClassName("_1gfnqJ3Vtd1z40MlC0MzXu")[0].innerText;
+}
+
+function getHousePriceHistory(propertyID) {
+//   call your DB
+//   get property by propertyID
+}

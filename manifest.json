@@ -15,8 +15,7 @@
     },
     "permissions": ["activeTab", "scripting", "storage", "tabs"],
     "host_permissions": [
-        "https://*.rightmove.co.uk/*",
-        "*://*/*"
+        "https://*.rightmove.co.uk/*"
     ],
     "background": {
         "service_worker": "background.js"
