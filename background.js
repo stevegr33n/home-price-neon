@@ -1,21 +1,4 @@
 const rightmove = 'https://www.rightmove.co.uk'
-
-// chrome.tabs.onUpdated.addListener((tabID, tab) => {
-//
-//   console.log(tab.url)
-//   console.log(tab.title)
-//
-//   if (tab.url && tab.url.includes(rightmove + "/properties")) {
-//     const propertyID = tab.url.split("#")[0].slice(-9)
-//
-//     console.log("eye")
-//     chrome.tabs.sendMessage(tabID, {
-//     type: "NEW",
-//     propertyID: propertyID
-//     })
-//   }
-// })
-
 async function getCurrentTab() {
   let queryOptions = { active: true, currentWindow: true };
   let [tab] = await chrome.tabs.query(queryOptions);
@@ -27,12 +10,20 @@ chrome.tabs.onUpdated.addListener(async () => {
   if (tab.url && tab.url.includes(rightmove + "/properties")) {
     const propertyID = tab.url.split("#")[0].slice(-9)
 
-    // console.log(tab.url)
+    console.log(tab.url)
     // console.log(tab.id)
     // console.log(propertyID)
+    // chrome.tabs.sendMessage(tab.id, {
+    //   type: "NEW",
+    //   propertyID: propertyID
+    // })
+
+    // chrome.tabs.sendMessage(tab.id, { method: "updatePrice", propertyID: propertyID}, (response) => {
+    //   console.log(response);
+    // });
 
     chrome.tabs.sendMessage(tab.id, {
-      type: "NEW",
+      type: "updatePrice",
       propertyID: propertyID
     })
   }

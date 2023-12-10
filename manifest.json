@@ -1,27 +1,36 @@
 {
-    "name": "House Price History",
-    "version": "0.0.1",
+    "name": "Rightmove Enhancement Suite",
+    "version": "1.0",
     "manifest_version": 3,
-    "description": "Rightmove property tracker",
-    "icons": {
-        "16": "logo/logo-16.png",
-        "48": "logo/logo-48.png",
-        "128": "logo/logo-128.png"
-    },
-    "options_page": "settings/settings.html",
+    "description": "See property price history on Rightmove",
     "action": {
-        "default_title": "Chrome Addon v3 Starter",
+        "default_title": "Rightmove Enhancement Suite",
         "default_popup": "popup/popup.html"
-    },
-    "permissions": ["activeTab", "scripting", "storage", "tabs"],
-    "host_permissions": [
-        "https://*.rightmove.co.uk/*"
-    ],
-    "background": {
-        "service_worker": "background.js"
     },
     "content_scripts": [{
         "js": ["contentScript.js"],
         "matches": ["https://*.rightmove.co.uk/*"]
-    }]
+    }],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "icons": {
+        "16": "images/icons/logo-16.png",
+        "48": "images/icons/logo-48.png",
+        "128": "images/icons/logo-128.png"
+    },
+    "web_accessible_resources": [
+        {
+            "matches": [
+                "https://www.rightmove.co.uk/*"
+            ],
+            "resources": [
+                "*.gif",
+                "*.svg"
+            ]
+        }
+    ],
+    "permissions": [
+        "storage", "tabs"
+    ]
 }
