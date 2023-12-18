@@ -2,7 +2,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
   if (message.type === "updatePrice") {
     const price = getHousePrice();
     try {
-      const response = await getHousePriceHistory(message.propertyID, price)
+      const response = await getHousePriceHistory(message.propertyID, price, message.userID)
       let {data} = await response.json();
       displayPriceHistory(data)
       sendResponse(data)
@@ -78,7 +78,7 @@ function getHousePrice() {
   return Number(value.replace(/,/g, ''));
 }
 
-async function getHousePriceHistory(propertyID, price){
+async function getHousePriceHistory(propertyID, price, userID){
   return fetch("http://localhost:4000/properties", {
     method: "POST",
     body: JSON.stringify({
@@ -87,7 +87,7 @@ async function getHousePriceHistory(propertyID, price){
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
-      "User-ID": "7a4d4a80-43c4-4a56-ae63-fdc90288cdf8"
+      "User-ID": userID
     }
   });
 }
