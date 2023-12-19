@@ -1,9 +1,3 @@
-console.log("This prints to the console of the service worker (background.js)")
-
-const userData = {
-  userID: ""
-}
-
 chrome.runtime.onInstalled.addListener(async (userID) => {
   let uuid = crypto.randomUUID()
   const response = await fetch("http://localhost:4000/zoekravitz", {
@@ -20,25 +14,23 @@ chrome.runtime.onInstalled.addListener(async (userID) => {
   });
 
   let {data} = await response.json();
-  userData.userID = data
+  await chrome.storage.local.set({userID: data})
 });
 
-async function getCurrentTab() {
-  let queryOptions = { active: true, currentWindow: true };
-  let [tab] = await chrome.tabs.query(queryOptions);
-  return tab;
-}
-chrome.tabs.onUpdated.addListener(async () => {
-  const tab = await getCurrentTab()
+chrome.tabs.onUpdated.addListener(fetchPropertyPrice);
+chrome.tabs.onHighlighted.addListener(fetchPropertyPrice);
+async function fetchPropertyPrice() {
+  const [tab] = await chrome.tabs.query({active: true, currentWindow: true, status: "complete"});
   const rightmoveURL = 'https://www.rightmove.co.uk'
 
-  if (tab.url && tab.url.includes(rightmoveURL + "/properties")) {
+  console.log(tab)
+
+  if (tab?.url?.includes(rightmoveURL + "/properties")) {
     const propertyID = tab.url.split("#")[0].slice(-9)
 
-   chrome.tabs.sendMessage(tab.id, {
-      type: "updatePrice",
-      userID: userData.userID,
-      propertyID: propertyID
-    })
+    const {userID} = await chrome.storage.local.get(["userID"])
+
+    const response = await chrome.tabs.sendMessage(tab.id, {greeting: "yeah", propertyID, userID});
+    console.log(response);
   }
-});
+}

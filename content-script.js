@@ -1,17 +1,23 @@
-chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-  if (message.type === "updatePrice") {
-    const price = getHousePrice();
-    try {
-      const response = await getHousePriceHistory(message.propertyID, price, message.userID)
-      let {data} = await response.json();
-      displayPriceHistory(data)
-      sendResponse(data)
-    } catch (error) {
-      console.error(error);
+console.log('bitchin')
+chrome.runtime.onMessage.addListener(
+  async function(request, sender, sendResponse) {
+    if (request.greeting === "yeah" && tableDoesNotExist()) {
+      const price = getHousePrice();
+      try {
+        const response = await getHousePriceHistory(request.propertyID, price, request.userID)
+        let {data} = await response.json();
+        displayPriceHistory(data);
+        return true;
+      } catch (error) {
+        console.error(error);
+        return true;
+      }
     }
-    sendResponse([])
-  }
 });
+
+function tableDoesNotExist() {
+  return document.getElementById("tommy-vercetti") === null
+}
 
 function generateTableHead(table) {
   let thead = table.createTHead();
@@ -65,6 +71,7 @@ function generateTable(table, data) {
 function displayPriceHistory(data) {
   const parent = document.querySelector('main > div > *:last-child > div > article > div > div')
   const table = document.createElement("table");
+  table.setAttribute("id", "tommy-vercetti");
   table.classList.add("styled-table");
 
   generateTableHead(table);
@@ -87,7 +94,7 @@ async function getHousePriceHistory(propertyID, price, userID){
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
-      "User-ID": userID
+      "User-ID": userID,
     }
   });
 }
