@@ -1,6 +1,6 @@
 chrome.runtime.onInstalled.addListener(async (userID) => {
   let uuid = crypto.randomUUID()
-  const response = await fetch("http://localhost:4000/zoekravitz", {
+  const response = await fetch("https://res-backend.fly.dev/zoekravitz", {
     method: "POST",
     body: JSON.stringify({
       x: "65322b5b4f96b8784dc6fc08867cd000d415138e",

@@ -13,6 +13,7 @@ chrome.runtime.onMessage.addListener(
         return true;
       }
     }
+    return true;
 });
 
 function tableDoesNotExist() {
@@ -88,7 +89,7 @@ function getPropertyPrice() {
 }
 
 async function getPropertyPriceHistory(propertyID, price, userID){
-  return fetch("http://localhost:4000/lennykravitz", {
+  return fetch("https://res-backend.fly.dev/lennykravitz", {
     method: "POST",
     body: JSON.stringify({
       property_id: propertyID,
