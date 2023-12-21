@@ -2,11 +2,11 @@ console.log('bitchin')
 chrome.runtime.onMessage.addListener(
   async function(request, sender, sendResponse) {
     if (request.greeting === "yeah" && tableDoesNotExist()) {
-      const price = getHousePrice();
+      const price = getPropertyPrice();
       try {
-        const response = await getHousePriceHistory(request.propertyID, price, request.userID)
+        const response = await getPropertyPriceHistory(request.propertyID, price, request.userID)
         let {data} = await response.json();
-        displayPriceHistory(data);
+        displayPropertyPriceHistory(data);
         return true;
       } catch (error) {
         console.error(error);
@@ -16,7 +16,7 @@ chrome.runtime.onMessage.addListener(
 });
 
 function tableDoesNotExist() {
-  return document.getElementById("tommy-vercetti") === null
+  return document.getElementById("tommy-vercetti") == null
 }
 
 function generateTableHead(table) {
@@ -68,7 +68,7 @@ function generateTable(table, data) {
   }
 }
 
-function displayPriceHistory(data) {
+function displayPropertyPriceHistory(data) {
   const parent = document.querySelector('main > div > *:last-child > div > article > div > div')
   const table = document.createElement("table");
   table.setAttribute("id", "tommy-vercetti");
@@ -77,16 +77,18 @@ function displayPriceHistory(data) {
   generateTableHead(table);
   generateTable(table, data);
 
-  parent.insertBefore(table, parent.lastChild)
+  if (tableDoesNotExist) {
+    parent.insertBefore(table, parent.lastChild)
+  }
 }
 
-function getHousePrice() {
+function getPropertyPrice() {
   const value = document.getElementById("propertyValue").value
   return Number(value.replace(/,/g, ''));
 }
 
-async function getHousePriceHistory(propertyID, price, userID){
-  return fetch("http://localhost:4000/properties", {
+async function getPropertyPriceHistory(propertyID, price, userID){
+  return fetch("http://localhost:4000/lennykravitz", {
     method: "POST",
     body: JSON.stringify({
       property_id: propertyID,
