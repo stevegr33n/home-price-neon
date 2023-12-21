@@ -78,7 +78,7 @@ function displayPropertyPriceHistory(data) {
   generateTableHead(table);
   generateTable(table, data);
 
-  if (tableDoesNotExist) {
+  if (tableDoesNotExist()) {
     parent.insertBefore(table, parent.lastChild)
   }
 }
