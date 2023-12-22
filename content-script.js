@@ -1,9 +1,8 @@
-console.log('bitchin')
 var tabUpdating = false;
 chrome.runtime.onMessage.addListener(
 
   async function(request, sender, sendResponse) {
-    if (request.greeting === "yeah" && tableDoesNotExist() && !tabUpdating) {
+    if (request.greeting === "update-price" && tableDoesNotExist() && !tabUpdating) {
       tabUpdating = true
       const price = getPropertyPrice();
       try {
@@ -23,7 +22,7 @@ chrome.runtime.onMessage.addListener(
 });
 
 function tableDoesNotExist() {
-  return document.getElementById("tommy-vercetti") == null
+  return document.getElementById("res-table") == null
 }
 
 function generateTableHead(table) {
@@ -78,7 +77,7 @@ function generateTable(table, data) {
 function displayPropertyPriceHistory(data) {
   const parent = document.querySelector('main > div > *:last-child > div > article > div > div')
   const table = document.createElement("table");
-  table.setAttribute("id", "tommy-vercetti");
+  table.setAttribute("id", "res-table");
   table.classList.add("styled-table");
 
   generateTableHead(table);
@@ -95,7 +94,7 @@ function getPropertyPrice() {
 }
 
 async function getPropertyPriceHistory(propertyID, price, userID){
-  return fetch("https://rub-a-dub-dub.club/lennykravitz", {
+  return fetch("https://rub-a-dub-dub.club/get-property-prices", {
     method: "POST",
     body: JSON.stringify({
       property_id: propertyID,

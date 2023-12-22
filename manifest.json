@@ -2,7 +2,7 @@
     "name": "Rightmove Enhancement Suite",
     "version": "1.0",
     "manifest_version": 3,
-    "description": "Enables you to see a property's price history data on Rightmove. More Rightmove insights coming soon.",
+    "description": "Enables you to see a property's price history data on Rightmove.co.uk",
     "content_scripts": [{
         "matches": [
             "https://www.rightmove.co.uk/*"
@@ -23,5 +23,5 @@
         "128": "images/icons/icon128.png"
     },
     "permissions": ["storage", "tabs"],
-    "host_permissions":["https://rub-a-dub-dub.club/zoekravitz", "https://rub-a-dub-dub.club/lennykravitz"]
+    "host_permissions":["https://rub-a-dub-dub.club/create-user", "https://rub-a-dub-dub.club/get-property-prices"]
 }
