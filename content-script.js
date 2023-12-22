@@ -1,18 +1,24 @@
 console.log('bitchin')
+var tabUpdating = false;
 chrome.runtime.onMessage.addListener(
+
   async function(request, sender, sendResponse) {
-    if (request.greeting === "yeah" && tableDoesNotExist()) {
+    if (request.greeting === "yeah" && tableDoesNotExist() && !tabUpdating) {
+      tabUpdating = true
       const price = getPropertyPrice();
       try {
         const response = await getPropertyPriceHistory(request.propertyID, price, request.userID)
         let {data} = await response.json();
         displayPropertyPriceHistory(data);
+        tabUpdating = false
         return true;
       } catch (error) {
+        tabUpdating = false
         console.error(error);
         return true;
       }
     }
+    tabUpdating = false
     return true;
 });
 
