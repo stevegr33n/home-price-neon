@@ -2,7 +2,7 @@
     "name": "Rightmove Enhancement Suite",
     "version": "1.0",
     "manifest_version": 3,
-    "description": "Allows you to see a property's price history on Rightmove. More Rightmove insights coming soon.",
+    "description": "Enables you to see a property's price history data on Rightmove. More Rightmove insights coming soon.",
     "content_scripts": [{
         "matches": [
             "https://www.rightmove.co.uk/*"
