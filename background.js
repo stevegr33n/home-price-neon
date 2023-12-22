@@ -18,14 +18,9 @@ async function fetchPropertyPrice() {
   const [tab] = await chrome.tabs.query({active: true, currentWindow: true, status: "complete"});
   const rightmoveURL = 'https://www.rightmove.co.uk'
 
-  console.log(tab)
-
   if (tab?.url?.includes(rightmoveURL + "/properties")) {
     const propertyID = tab.url.split("#")[0].slice(-9)
-
     const {userID} = await chrome.storage.local.get(["userID"])
-
-    const response = await chrome.tabs.sendMessage(tab.id, {greeting: "update-price", propertyID, userID});
-    console.log(response);
+    await chrome.tabs.sendMessage(tab.id, {greeting: "update-price", propertyID, userID});
   }
 }

@@ -1,6 +1,5 @@
 var tabUpdating = false;
 chrome.runtime.onMessage.addListener(
-
   async function(request, sender, sendResponse) {
     if (request.greeting === "update-price" && tableDoesNotExist() && !tabUpdating) {
       tabUpdating = true
@@ -13,7 +12,6 @@ chrome.runtime.onMessage.addListener(
         return true;
       } catch (error) {
         tabUpdating = false
-        console.error(error);
         return true;
       }
     }
