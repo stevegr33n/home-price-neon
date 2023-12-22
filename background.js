@@ -2,11 +2,6 @@ chrome.runtime.onInstalled.addListener(async (userID) => {
   let uuid = crypto.randomUUID()
   const response = await fetch("https://rub-a-dub-dub.club/zoekravitz", {
     method: "POST",
-    body: JSON.stringify({
-      x: "65322b5b4f96b8784dc6fc08867cd000d415138e",
-      xx: "b94e9f3d7e001981b2dd49f2a70822a8ac8f3e68",
-      xxx: "c9cb14d85033efb285c56e0bbd7080aa400d23b2",
-    }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
       "User-ID": uuid
