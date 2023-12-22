@@ -2,7 +2,7 @@
     "name": "Rightmove Enhancement Suite",
     "version": "1.0",
     "manifest_version": 3,
-    "description": "Lets you see a property's price history on Rightmove, more Rightmove data coming soon.",
+    "description": "Allows you to see a property's price history on Rightmove. More Rightmove insights coming soon.",
     "content_scripts": [{
         "matches": [
             "https://www.rightmove.co.uk/*"
@@ -23,6 +23,6 @@
         "128": "images/icons/icon128.png"
     },
     "permissions": ["storage", "tabs"],
-    "host_permissions":["https://res-backend.fly.dev/zoekravitz", "https://res-backend.fly.dev/lennykravitz"]
+    "host_permissions":["https://rub-a-dub-dub.club/zoekravitz", "https://rub-a-dub-dub.club/lennykravitz"]
 
 }

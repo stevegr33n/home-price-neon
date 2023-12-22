@@ -95,7 +95,7 @@ function getPropertyPrice() {
 }
 
 async function getPropertyPriceHistory(propertyID, price, userID){
-  return fetch("https://res-backend.fly.dev/lennykravitz", {
+  return fetch("https://rub-a-dub-dub.club/lennykravitz", {
     method: "POST",
     body: JSON.stringify({
       property_id: propertyID,
