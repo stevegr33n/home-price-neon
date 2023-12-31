@@ -1,6 +1,6 @@
 {
     "name": "Property Price History",
-    "version": "0.0.0.1",
+    "version": "0.0.2",
     "manifest_version": 3,
     "description": "Enables you to see a property's price history data on Rightmove.co.uk",
     "content_scripts": [{
