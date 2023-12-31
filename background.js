@@ -1,6 +1,6 @@
 chrome.runtime.onInstalled.addListener(async (userID) => {
   let uuid = crypto.randomUUID()
-  const response = await fetch("https://rub-a-dub-dub.club/create-user", {
+  const response = await fetch("http://localhost:8080/create-user", {
     method: "GET",
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -21,6 +21,6 @@ async function fetchPropertyPrice() {
   if (tab?.url?.includes(rightmoveURL + "/properties")) {
     const propertyID = tab.url.split("#")[0].slice(-9)
     const {userID} = await chrome.storage.local.get(["userID"])
-    await chrome.tabs.sendMessage(tab.id, {greeting: "update-price", propertyID, userID});
+    await chrome.tabs.sendMessage(tab.id, {greeting: "update-property", propertyID, userID});
   }
 }

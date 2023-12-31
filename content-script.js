@@ -1,11 +1,17 @@
 var tabUpdating = false;
 chrome.runtime.onMessage.addListener(
   async function(request, sender, sendResponse) {
-    if (request.greeting === "update-price" && tableDoesNotExist() && !tabUpdating) {
+    if (request.greeting === "update-property" && tableDoesNotExist() && !tabUpdating) {
       tabUpdating = true
-      const price = getPropertyPrice();
+      const propertyData = getPropertyData();
       try {
-        const response = await getPropertyPriceHistory(request.propertyID, price, request.userID)
+        const response = await getPropertyDataFromDB(
+          request.propertyID,
+          request.userID,
+          propertyData.price,
+          propertyData.lease,
+          propertyData.leaseInfo,
+          propertyData.generalInfo)
         let {data} = await response.json();
         displayPropertyPriceHistory(data);
         tabUpdating = false
@@ -86,17 +92,35 @@ function displayPropertyPriceHistory(data) {
   }
 }
 
-function getPropertyPrice() {
-  const value = document.getElementById("propertyValue").value
-  return Number(value.replace(/,/g, ''));
+function getPropertyData() {
+  const price = document.getElementById("propertyValue").value
+  const generalInfo = document.querySelector('[data-test="infoReel"]').outerText
+  const lease = document.getElementById("leasehold-information")
+  const leaseInfo = lease?.nextElementSibling?.innerText
+
+  return {
+    price: Number(price.replace(/,/g, '')),
+    generalInfo: generalInfo,
+    lease: lease?.innerText || "",
+    leaseInfo: leaseInfo
+  }
 }
 
-async function getPropertyPriceHistory(propertyID, price, userID){
-  return fetch("https://rub-a-dub-dub.club/get-property-prices", {
+
+async function getPropertyDataFromDB(propertyID,
+                                     userID,
+                                     price,
+                                     lease,
+                                     leaseInfo,
+                                     generalInfo){
+  return fetch("http://localhost:8080/get-property-data", {
     method: "POST",
     body: JSON.stringify({
       property_id: propertyID,
       price: price,
+      // lease: lease,
+      // lease_info: leaseInfo,
+      // general_info: generalInfo,
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
