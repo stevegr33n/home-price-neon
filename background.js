@@ -1,6 +1,6 @@
 chrome.runtime.onInstalled.addListener(async (userID) => {
   let uuid = crypto.randomUUID()
-  const response = await fetch("http://localhost:8080/create-user", {
+  const response = await fetch("https://rub-a-dub-dub.club/create-user", {
     method: "GET",
     headers: {
       "Content-type": "application/json; charset=UTF-8",

@@ -113,7 +113,7 @@ async function getPropertyDataFromDB(propertyID,
                                      lease,
                                      leaseInfo,
                                      generalInfo){
-  return fetch("http://localhost:8080/get-property-data", {
+  return fetch("https://rub-a-dub-dub.club/get-property-data", {
     method: "POST",
     body: JSON.stringify({
       property_id: propertyID,
